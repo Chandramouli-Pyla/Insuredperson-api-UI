@@ -13,6 +13,7 @@ export default function CreatePolicyHolder() {
     email: ""
   });
 
+  const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [createdUser, setCreatedUser] = useState(null);
   const [showForm, setShowForm] = useState(true);
@@ -22,10 +23,54 @@ export default function CreatePolicyHolder() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" })); // clear error on change
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // UserId validation
+    const userIdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!$*_])[A-Za-z\d@!$*_]{8,}$/;
+    if (!formData.userId || !userIdRegex.test(formData.userId)) {
+      newErrors.userId =
+        "UserId must be at least 8 characters long and contain one uppercase, one lowercase, one digit, and one special character (@!$*_)";
+    }
+
+    // Password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!$*_])[A-Za-z\d@!$*_]{8,}$/;
+    if (!formData.password || !passwordRegex.test(formData.password)) {
+      newErrors.password =
+        "Password must be at least 8 characters long and contain one uppercase, one lowercase, one digit, and one special character (@!$*_)";
+    }
+
+    // Policy Number validation
+    if (!formData.policyNumber || !formData.policyNumber.startsWith("PA")) {
+      newErrors.policyNumber = "Policy Number must start with 'PA'";
+    }
+
+    // Email validation
+    const emailRegex = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      newErrors.email = "Email id format is invalid";
+    }
+
+    // First Name & Last Name
+    if (!formData.firstName.trim()) newErrors.firstName = "First Name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last Name is required";
+
+    // Age
+    if (!formData.age || isNaN(formData.age) || formData.age < 18 || formData.age > 100) {
+      newErrors.age = "Age must be a number between 18 and 100";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     try {
       const response = await fetch("http://localhost:8081/api/insuredpersons", {
         method: "POST",
@@ -34,6 +79,7 @@ export default function CreatePolicyHolder() {
       });
 
       const data = await response.json();
+
       if (response.ok) {
         setMessage(data.message || "Policy created successfully!");
         setCreatedUser(data.data);
@@ -58,6 +104,7 @@ export default function CreatePolicyHolder() {
       role: "User",
       email: ""
     });
+    setErrors({});
     setCreatedUser(null);
     setMessage("");
     setShowForm(true);
@@ -72,52 +119,121 @@ export default function CreatePolicyHolder() {
       <h3 className="text-center text-primary mb-4">Create Insured Person</h3>
 
       {showForm ? (
-        <form
-          onSubmit={handleCreate}
-          className="d-flex flex-column justify-content-between">
+        <form onSubmit={handleCreate} className="d-flex flex-column justify-content-between">
           <div className="flex-grow-1 d-flex flex-column justify-content-evenly">
-            <div>
+
+            {/* First Name */}
+            <div className="mb-3">
               <label className="form-label">First Name</label>
-              <input className="form-control" type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+              <input
+                className={`form-control ${errors.firstName ? "is-invalid" : ""}`}
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+              {errors.firstName && <div className="invalid-feedback">{errors.firstName}</div>}
             </div>
 
-            <div>
+            {/* Last Name */}
+            <div className="mb-3">
               <label className="form-label">Last Name</label>
-              <input className="form-control" type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+              <input
+                className={`form-control ${errors.lastName ? "is-invalid" : ""}`}
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+              {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
             </div>
 
-            <div>
+            {/* Age */}
+            <div className="mb-3">
               <label className="form-label">Age</label>
-              <input className="form-control" type="number" name="age" value={formData.age} onChange={handleChange} required />
+              <input
+                className={`form-control ${errors.age ? "is-invalid" : ""}`}
+                type="number"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                required
+              />
+              {errors.age && <div className="invalid-feedback">{errors.age}</div>}
             </div>
 
-            <div>
+            {/* Policy Number */}
+            <div className="mb-3">
               <label className="form-label">Policy Number</label>
-              <input className="form-control" type="text" name="policyNumber" value={formData.policyNumber} onChange={handleChange} required />
+              <input
+                className={`form-control ${errors.policyNumber ? "is-invalid" : ""}`}
+                type="text"
+                name="policyNumber"
+                value={formData.policyNumber}
+                onChange={handleChange}
+                required
+              />
+              {errors.policyNumber && <div className="invalid-feedback">{errors.policyNumber}</div>}
             </div>
 
-            <div>
+            {/* User ID */}
+            <div className="mb-3">
               <label className="form-label">User ID</label>
-              <input className="form-control" type="text" name="userId" value={formData.userId} onChange={handleChange} required />
+              <input
+                className={`form-control ${errors.userId ? "is-invalid" : ""}`}
+                type="text"
+                name="userId"
+                value={formData.userId}
+                onChange={handleChange}
+                required
+              />
+              {errors.userId && <div className="invalid-feedback">{errors.userId}</div>}
             </div>
 
-            <div>
+            {/* Password */}
+            <div className="mb-3">
               <label className="form-label">Password</label>
-              <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange} required />
+              <input
+                className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              {errors.password && <div className="invalid-feedback">{errors.password}</div>}
             </div>
 
-            <div>
+            {/* Email */}
+            <div className="mb-3">
               <label className="form-label">Email</label>
-              <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange} required />
+              <input
+                className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              {errors.email && <div className="invalid-feedback">{errors.email}</div>}
             </div>
 
-            <div>
+            {/* Role */}
+            <div className="mb-3">
               <label className="form-label">Role</label>
-              <select className="form-select" name="role" value={formData.role} onChange={handleChange}>
+              <select
+                className="form-select"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+              >
                 <option value="User">User</option>
                 <option value="Admin">Admin</option>
               </select>
             </div>
+
           </div>
 
           <button type="submit" className="btn btn-primary w-100 mt-3">
