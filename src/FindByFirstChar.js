@@ -10,7 +10,7 @@ export default function FindByFirstChar() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8081/api/insuredpersons/findByFirstChar?firstChar=${firstChar}`,
+        `https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/findByFirstChar?firstChar=${firstChar}`,
         {
           method: "GET",
           headers: {

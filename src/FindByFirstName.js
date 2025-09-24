@@ -11,7 +11,7 @@ export default function FindByFirstName() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8081/api/insuredpersons/findByFirstName?firstName=${firstName}`,
+        `https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/findByFirstName?firstName=${firstName}`,
         {
           method: "GET",
           headers: {

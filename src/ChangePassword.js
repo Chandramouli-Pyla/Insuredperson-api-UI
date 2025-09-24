@@ -35,7 +35,7 @@ export default function ChangePassword() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://localhost:8081/api/insuredpersons/change-password",
+        "https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/change-password",
         {
           method: "PUT",
           headers: {

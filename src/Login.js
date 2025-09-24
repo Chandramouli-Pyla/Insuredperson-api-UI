@@ -11,7 +11,8 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8081/api/insuredpersons/login", {
+      // const response = await fetch("http://localhost:8081/api/insuredpersons/login"
+        const response = await fetch("https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, password }),

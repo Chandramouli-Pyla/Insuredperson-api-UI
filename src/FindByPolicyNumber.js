@@ -10,7 +10,7 @@ export default function FindByPolicyNumber() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8081/api/insuredpersons/${policyNumber}`,
+        `https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/${policyNumber}`,
         {
           method: "GET",
           headers: {

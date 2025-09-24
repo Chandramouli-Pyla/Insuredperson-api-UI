@@ -15,7 +15,7 @@ export default function ForgotResetPassword() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8081/api/insuredpersons/forgot-password",
+        "https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/forgot-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -41,7 +41,7 @@ export default function ForgotResetPassword() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8081/api/insuredpersons/reset-password",
+        "https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/reset-password",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

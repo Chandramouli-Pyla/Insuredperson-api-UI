@@ -72,7 +72,7 @@ export default function CreatePolicyHolder() {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("http://localhost:8081/api/insuredpersons", {
+      const response = await fetch("https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, age: parseInt(formData.age, 10) })
