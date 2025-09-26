@@ -36,7 +36,7 @@ export default function PolicySearch() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8081/api/insuredpersons?offSet=${page}&pageSize=5`,
+        `https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons?offSet=${page}&pageSize=5`,
         {
           method: "GET",
           headers: {
