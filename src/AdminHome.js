@@ -15,7 +15,7 @@ export default function AdminHome() {
       const payload = JSON.parse(atob(token.split(".")[1]));
       const policyNumber = payload.sub;
 
-      fetch(`http://localhost:8081/api/insuredpersons/${policyNumber}`, {
+      fetch(`https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/${policyNumber}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
