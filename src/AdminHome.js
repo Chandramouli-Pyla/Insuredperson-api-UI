@@ -70,9 +70,6 @@ export default function AdminHome() {
               <Link to="create">
                 <button>Register Policy Holder</button>
               </Link>
-              <Link to="policyNumber">
-                <button>Policy Details</button>
-              </Link>
               <Link to="update">
                 <button>Update Details</button>
               </Link>
