@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function PolicySearch() {
   const [filters, setFilters] = useState({
     policyNumber: "",
+    typeOfInsurance:"",
     firstName: "",
     lastName: "",
     firstChar: "",
@@ -77,6 +78,16 @@ export default function PolicySearch() {
           onChange={handleChange}
           className="border rounded px-3 py-2"
         />
+
+        <input
+          type="text"
+          name="typeOfInsurance"
+          placeholder="Type of Insurance"
+          value={filters.typeOfInsurance}
+          onChange={handleChange}
+          className="border rounded px-3 py-2"
+        />
+
         <input
           type="text"
           name="firstName"
@@ -152,11 +163,13 @@ export default function PolicySearch() {
                 <th className="px-4 py-2">First Name</th>
                 <th className="px-4 py-2">Last Name</th>
                 <th className="px-4 py-2">Policy Number</th>
+                <th className="px-4 py-2">Policy Type</th>
                 <th className="px-4 py-2">Age</th>
                 <th className="px-4 py-2">Email</th>
                 <th className="px-4 py-2">Phone</th>
                 <th className="px-4 py-2">User ID</th>
                 <th className="px-4 py-2">Role</th>
+                <th className="px-4 -y-2">Address</th>
               </tr>
             </thead>
             <tbody>
@@ -176,6 +189,11 @@ export default function PolicySearch() {
                     <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">
                       {person.role}
                     </span>
+                  </td>
+                  <td className="border px-4 py-2">
+                      {[person?.street ? `${person.street} St`:null, person?.apartment, person?.city, person?.state, person?.country, person?.zipcode]
+                      .filter(Boolean)
+                      .join(", ")}
                   </td>
                 </tr>
               ))}

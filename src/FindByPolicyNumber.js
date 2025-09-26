@@ -75,10 +75,12 @@ export default function FindByPolicyNumber() {
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Policy Number</th>
+                <th>Policy Type</th>
                 <th>Age</th>
                 <th>Email</th>
                 <th>User ID</th>
                 <th>Role</th>
+                <th>Address</th>
               </tr>
             </thead>
             <tbody>
@@ -87,11 +89,17 @@ export default function FindByPolicyNumber() {
                   <td>{person.firstName}</td>
                   <td>{person.lastName}</td>
                   <td>{person.policyNumber}</td>
+                  <td>{person.typeOfInsurance}</td>
                   <td>{person.age}</td>
                   <td>{person.email}</td>
                   <td>{person.userId}</td>
                   <td>
                     <span className="badge bg-primary">{person.role}</span>
+                  </td>
+                  <td>
+                      {[person?.street ? `${person.street} St`:null, person?.apartment, person?.city, person?.state, person?.country, person?.zipcode]
+                      .filter(Boolean)
+                      .join(", ")}
                   </td>
                 </tr>
               ))}

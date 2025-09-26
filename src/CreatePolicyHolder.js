@@ -7,10 +7,18 @@ export default function CreatePolicyHolder() {
     lastName: "",
     age: "",
     policyNumber: "",
+    typeOfInsurance: "",
     userId: "",
     password: "",
     role: "User",
-    email: ""
+    email: "",
+    phoneNumber: "",
+    street: "",
+    apartment: "",
+    city: "",
+    zipcode: "",
+    state: "",
+    country: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -23,7 +31,7 @@ export default function CreatePolicyHolder() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" })); // clear error on change
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const validateForm = () => {
@@ -63,6 +71,29 @@ export default function CreatePolicyHolder() {
       newErrors.age = "Age must be a number between 18 and 100";
     }
 
+    // Phone Number
+    const phoneRegex = /^[2-9][0-9]{9}$/;
+    if (!formData.phoneNumber || !phoneRegex.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = "Phone number must be 10 digits and start with digits 2-9";
+    }
+
+    // Zipcode
+    const zipRegex = /^[0-9]{5}$/;
+    if (!formData.zipcode || !zipRegex.test(formData.zipcode)) {
+      newErrors.zipcode = "Zip code must be exactly 5 digits";
+    }
+
+    // Type of Insurance
+    if (!formData.typeOfInsurance) {
+      newErrors.typeOfInsurance = "Type of Insurance is required";
+    }
+
+    // Address fields
+    if (!formData.street.trim()) newErrors.street = "Street is required";
+    if (!formData.city.trim()) newErrors.city = "City is required";
+    if (!formData.state.trim()) newErrors.state = "State is required";
+    if (!formData.country.trim()) newErrors.country = "Country is required";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -79,7 +110,6 @@ export default function CreatePolicyHolder() {
       });
 
       const data = await response.json();
-
       if (response.ok) {
         setMessage(data.message || "Policy created successfully!");
         setCreatedUser(data.data);
@@ -99,10 +129,18 @@ export default function CreatePolicyHolder() {
       lastName: "",
       age: "",
       policyNumber: "",
+      typeOfInsurance: "",
       userId: "",
       password: "",
       role: "User",
-      email: ""
+      email: "",
+      phoneNumber: "",
+      street: "",
+      apartment: "",
+      city: "",
+      zipcode: "",
+      state: "",
+      country: ""
     });
     setErrors({});
     setCreatedUser(null);
@@ -178,6 +216,122 @@ export default function CreatePolicyHolder() {
               {errors.policyNumber && <div className="invalid-feedback">{errors.policyNumber}</div>}
             </div>
 
+            {/* Type of Insurance */}
+            <div className="mb-3">
+              <label className="form-label">Type of Insurance</label>
+              <select
+                className={`form-select ${errors.typeOfInsurance ? "is-invalid" : ""}`}
+                name="typeOfInsurance"
+                value={formData.typeOfInsurance}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select</option>
+                <option value="HEALTH">Health</option>
+                <option value="LIFE">Life</option>
+                <option value="AUTO">Auto</option>
+                <option value="HOME">Home</option>
+                <option value="TRAVEL">Travel</option>
+              </select>
+              {errors.typeOfInsurance && <div className="invalid-feedback">{errors.typeOfInsurance}</div>}
+            </div>
+
+            {/* Phone Number */}
+            <div className="mb-3">
+              <label className="form-label">Phone Number</label>
+              <input
+                className={`form-control ${errors.phoneNumber ? "is-invalid" : ""}`}
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+              />
+              {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber}</div>}
+            </div>
+
+            {/* Street */}
+            <div className="mb-3">
+              <label className="form-label">Street</label>
+              <input
+                className={`form-control ${errors.street ? "is-invalid" : ""}`}
+                type="text"
+                name="street"
+                value={formData.street}
+                onChange={handleChange}
+                required
+              />
+              {errors.street && <div className="invalid-feedback">{errors.street}</div>}
+            </div>
+
+            {/* Apartment */}
+            <div className="mb-3">
+              <label className="form-label">Apartment</label>
+              <input
+                className="form-control"
+                type="text"
+                name="apartment"
+                value={formData.apartment}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* City */}
+            <div className="mb-3">
+              <label className="form-label">City</label>
+              <input
+                className={`form-control ${errors.city ? "is-invalid" : ""}`}
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              />
+              {errors.city && <div className="invalid-feedback">{errors.city}</div>}
+            </div>
+
+            {/* State */}
+            <div className="mb-3">
+              <label className="form-label">State</label>
+              <input
+                className={`form-control ${errors.state ? "is-invalid" : ""}`}
+                type="text"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                required
+              />
+              {errors.state && <div className="invalid-feedback">{errors.state}</div>}
+            </div>
+
+            {/* Country */}
+            <div className="mb-3">
+              <label className="form-label">Country</label>
+              <input
+                className={`form-control ${errors.country ? "is-invalid" : ""}`}
+                type="text"
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                required
+              />
+              {errors.country && <div className="invalid-feedback">{errors.country}</div>}
+            </div>
+
+            {/* Zipcode */}
+            <div className="mb-3">
+              <label className="form-label">Zipcode</label>
+              <input
+                className={`form-control ${errors.zipcode ? "is-invalid" : ""}`}
+                type="text"
+                name="zipcode"
+                value={formData.zipcode}
+                onChange={handleChange}
+                required
+              />
+              {errors.zipcode && <div className="invalid-feedback">{errors.zipcode}</div>}
+            </div>
+
             {/* User ID */}
             <div className="mb-3">
               <label className="form-label">User ID</label>
@@ -233,7 +387,6 @@ export default function CreatePolicyHolder() {
                 <option value="Admin">Admin</option>
               </select>
             </div>
-
           </div>
 
           <button type="submit" className="btn btn-primary w-100 mt-3">
