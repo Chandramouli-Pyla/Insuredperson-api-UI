@@ -40,7 +40,7 @@ export default function App() {
         <Route path="/userhome" element={<UserHome />}>
           <Route path="welcome" element={<Welcome />} />
           <Route path="policyNumber" element={<FindByPolicyNumber />} />
-          <Route path="policySearch" element={<PolicySearch />}/>
+          <Route path="updatePolicy" element={<UpdateInsuredPerson />}/>
           <Route path="changePassword" element={<ChangePassword/>} />
         </Route>
 

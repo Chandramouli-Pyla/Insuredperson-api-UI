@@ -88,8 +88,8 @@ export default function AdminHome() {
                 <Link to="policyNumber">
                   <button>Policy Details</button>
                 </Link>
-                <Link to="policySearch">
-                  <button>Policy Search</button>
+                <Link to="updatePolicy">
+                  <button>Update Profile</button>
                 </Link>
                 <Link to="changePassword">
                   <button>Change Password</button>
