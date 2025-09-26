@@ -28,7 +28,6 @@ export default function App() {
           <Route path="welcome" element={<Welcome />} />
           <Route path="create" element={<CreatePolicyHolder />}/>
           <Route path="update" element={<UpdateInsuredPerson/>}/>
-          <Route path="all" element={<GetAllInsuredPersons />} />
           <Route path="firstName" element={<FindByFirstName />} />
           <Route path="policySearch" element={<PolicySearch />} />
           <Route path="lastName" element={<FindByLastName />} />

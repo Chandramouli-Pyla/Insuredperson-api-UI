@@ -76,9 +76,6 @@ export default function AdminHome() {
               <Link to="policySearch">
                 <button>Policy Search</button>
               </Link>
-              <Link to="all">
-                <button>Insured Directory</button>
-              </Link>
               <Link to="delete">
                 <button>Remove User</button>
               </Link>
