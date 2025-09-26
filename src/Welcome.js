@@ -14,7 +14,6 @@ export default function Welcome() {
     try {
       const payload = JSON.parse(atob(token.split(".")[1])); 
       const policyNumber = payload.sub;
-
       fetch(`https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/${policyNumber}`, {
         method: "GET",
         headers: {
@@ -61,6 +60,18 @@ export default function Welcome() {
             </li>
             <li className="list-group-item">
               <strong>Email:</strong> {user?.email}
+            </li>
+            <li className="list-group-item">
+              <strong>Phone Number:</strong> {user?.phoneNumber}
+            </li>
+            <li className="list-group-item">
+              <strong>Insurance:</strong> {user?.typeOfInsurance}
+            </li>
+            <li className="list-group-item">
+              <strong>Address:</strong>{" "}
+              {[user?.street ? `${user.street} St`:null, user?.apartment, user?.city, user?.state, user?.country, user?.zipcode]
+                .filter(Boolean) // remove null or undefined parts
+                .join(", ")}
             </li>
             <li className="list-group-item">
               <strong>Role:</strong>{" "}

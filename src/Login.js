@@ -11,7 +11,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // const response = await fetch("http://localhost:8081/api/insuredpersons/login"
+      
         const response = await fetch("https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -22,7 +22,16 @@ export default function Login() {
       if (response.ok) {
         localStorage.setItem("token", data.data.token);
         setMessage("Login successful");
-        navigate("/home/welcome");
+        //navigate("/home/welcome");
+
+      const role = data.data.user.role;
+      console.log(role);
+      if (role === "Admin") {
+        navigate("/adminhome/welcome");
+      } else {
+        navigate("/userhome/welcome");
+      }
+
       } else {
         setMessage(data.message || "Login failed, please check your credentials.");
       }
