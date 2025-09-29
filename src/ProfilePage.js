@@ -24,7 +24,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (policyNumber && token) {
-      fetch(`http://localhost:8081/api/insuredpersons/${policyNumber}`, {
+      fetch(`https://insuredperson-api-458668609912.us-central1.run.app/api/insuredpersons/${policyNumber}`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
