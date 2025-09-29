@@ -15,6 +15,7 @@ import ForgotPassword from "./ForgotPassword";
 import AdminHome from "./AdminHome";
 import UserHome from "./UserHome";
 import PolicySearch from "./PolicySearch";
+import ProfilePage from "./ProfilePage";
 export default function App() {
   return (
     <Router>
@@ -26,7 +27,7 @@ export default function App() {
         {/* Home layout route with nested pages for Admin Pages */}
         <Route path="/adminhome" element={<AdminHome />}>
           <Route path="welcome" element={<Welcome />} />
-          <Route path="profile" element={<ProfilePage/>}/>
+          <Route path="profile" element={<ProfilePage />}/>
           <Route path="create" element={<CreatePolicyHolder />}/>
           <Route path="update" element={<UpdateInsuredPerson/>}/>
           <Route path="firstName" element={<FindByFirstName />} />
