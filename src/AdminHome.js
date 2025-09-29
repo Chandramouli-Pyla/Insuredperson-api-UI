@@ -45,8 +45,14 @@ export default function AdminHome() {
       <header className="header">
         <h3>PCM Insurance Ltd.</h3>
         <div className="user-info">
-          <span>👤 {user?.firstName || "User"}</span>
-          <span>📑 Policy: {user?.policyNumber || "N/A"}</span>
+          {/* When we click on name it will redirect and render to profile page */}
+          <button
+            className="user-name-btn"
+            onClick={() => navigate("/adminhome/profile")}
+          >
+            👤 {user?.firstName || "User"}
+          </button>
+          {/* <span>📑 Policy: {user?.policyNumber || "N/A"}</span> */}
         </div>
       </header>
 

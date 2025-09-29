@@ -26,6 +26,7 @@ export default function App() {
         {/* Home layout route with nested pages for Admin Pages */}
         <Route path="/adminhome" element={<AdminHome />}>
           <Route path="welcome" element={<Welcome />} />
+          <Route path="profile" element={<ProfilePage/>}/>
           <Route path="create" element={<CreatePolicyHolder />}/>
           <Route path="update" element={<UpdateInsuredPerson/>}/>
           <Route path="firstName" element={<FindByFirstName />} />
@@ -39,6 +40,7 @@ export default function App() {
         {/* Home layout route with nested pages for User Pages */}
         <Route path="/userhome" element={<UserHome />}>
           <Route path="welcome" element={<Welcome />} />
+          <Route path="profile" element={<ProfilePage/>}/>
           <Route path="policyNumber" element={<FindByPolicyNumber />} />
           <Route path="updatePolicy" element={<UpdateInsuredPerson />}/>
           <Route path="changePassword" element={<ChangePassword/>} />
